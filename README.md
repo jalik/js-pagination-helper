@@ -1,4 +1,4 @@
-# PaginationHelper
+# Pagination Helper
 
 A helper to handle pagination easily.
 
@@ -10,12 +10,12 @@ Pagination is not a complex thing, but it is tedious when you have to repeat the
 
 ## Creating a pagination helper
 
-To create your first pagination helper, see the code below.
+To create your first pagination helper, take look at the code below.
 
 ```js
 import PaginationHelper from "@jalik/pagination-helper";
 
-const pager = new PaginationHelper({
+const helper = new PaginationHelper({
     // The limit per page
     limit: 10,
     // The results offset
@@ -23,24 +23,28 @@ const pager = new PaginationHelper({
     // The current page
     page: 1,
     // The result count
-    total: 100
+    total: 200
 });
 
 // Then do what you want with the available methods
-pager.getCurrentPage();
-pager.getLastPage();
-pager.getLimit();
-pager.getNextPage();
-pager.getOffset();
-pager.getPageCount();
-pager.getPreviousPage();
-pager.getTotal();
-pager.hasNext();
-pager.hasPrevious();
-pager.setCurrentPage(2);
-pager.setLimit(25);
-pager.setOffset(50);
-pager.setTotal(999);
+helper.getClosestPage(256); // returns 200
+helper.getLastPage(); // returns 10
+helper.getLimit();
+helper.getNextPage();
+helper.getOffsetFromPage(10); // returns 90
+helper.getOffset();
+helper.getPage();
+helper.getPageCount();
+helper.getPageFromOffset(10); // returns 2
+helper.getPreviousPage();
+helper.getTotal();
+helper.hasNext();
+helper.hasPrevious();
+helper.isPageValid(50); // returns true
+helper.setLimit(25);
+helper.setOffset(50);
+helper.setPage(2);
+helper.setTotal(999);
 ```
 
 ## Changelog

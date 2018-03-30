@@ -31,72 +31,302 @@ describe("PaginationHelper", () => {
         expect(typeof PaginationHelper).toEqual("function");
     });
 
-    describe("new PaginationHelper({limit: 10})", () => {
+    describe("getClosestPage(page)", () => {
         const p = new PaginationHelper({
             limit: 10,
-            offset: 0,
             page: 1,
-            total: 95
+            total: 100
         });
 
-        describe("getCurrentPage()", () => {
-            it(`should return 1`, () => {
-                expect(p.getCurrentPage()).toEqual(1);
-            });
+        it(`should return 1 if page is 0`, () => {
+            expect(p.getClosestPage(0)).toEqual(1);
         });
 
-        describe("getLastPage()", () => {
-            it(`should return 10`, () => {
-                expect(p.getLastPage()).toEqual(10);
-            });
+        it(`should return the last page if page is above page count`, () => {
+            expect(p.getClosestPage(25)).toEqual(10);
         });
 
-        describe("getLimit()", () => {
-            it(`should return 10`, () => {
-                expect(p.getLimit()).toEqual(10);
-            });
+        it(`should return the same page if there nothing to fix`, () => {
+            expect(p.getClosestPage(5)).toEqual(5);
+        });
+    });
+
+    describe("getLastPage()", () => {
+        const p = new PaginationHelper({
+            limit: 10,
+            page: 1,
+            total: 100
         });
 
-        describe("getNextPage()", () => {
-            it(`should return 2`, () => {
-                expect(p.getNextPage()).toEqual(2);
-            });
+        it(`should return the last page`, () => {
+            expect(p.getLastPage()).toEqual(10);
+        });
+    });
+
+    describe("getLimit()", () => {
+        const p = new PaginationHelper({
+            limit: 5,
+            page: 1,
+            total: 100
         });
 
-        describe("getOffset()", () => {
-            it(`should return 0`, () => {
-                expect(p.getOffset()).toEqual(0);
+        it(`should return the limit per page`, () => {
+            expect(p.getLimit()).toEqual(5);
+        });
+    });
+
+    describe("getNextPage()", () => {
+
+        it(`should return the next page if there is a page after`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 5,
+                total: 100
             });
+            expect(p.getNextPage()).toEqual(6);
         });
 
-        describe("getPageCount()", () => {
-            it(`should return 10`, () => {
-                expect(p.getPageCount()).toEqual(10);
+        it(`should return the last page if there is no page after`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 10,
+                total: 100
             });
+            expect(p.getNextPage()).toEqual(10);
+        });
+    });
+
+    describe("getOffset()", () => {
+
+        it(`should return the offset`, () => {
+            const p1 = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
+            });
+            expect(p1.getOffset()).toEqual(0);
+
+            const p2 = new PaginationHelper({
+                limit: 10,
+                page: 5,
+                total: 100
+            });
+            expect(p2.getOffset()).toEqual(40);
+        });
+    });
+
+    describe("getPage()", () => {
+        const p = new PaginationHelper({
+            limit: 10,
+            page: 3,
+            total: 100
         });
 
-        describe("getPreviousPage()", () => {
-            it(`should return 1`, () => {
-                expect(p.getPreviousPage()).toEqual(1);
-            });
+        it(`should return the current page`, () => {
+            expect(p.getPage()).toEqual(3);
+        });
+    });
+
+    describe("getPageCount()", () => {
+        const p = new PaginationHelper({
+            limit: 10,
+            page: 1,
+            total: 100
         });
 
-        describe("getTotal()", () => {
-            it(`should return 95`, () => {
-                expect(p.getTotal()).toEqual(95);
+        it(`should return the page count`, () => {
+            expect(p.getPageCount()).toEqual(10);
+        });
+    });
+
+    describe("getPreviousPage()", () => {
+
+        it(`should return the previous page if there is a page before`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 5,
+                total: 100
             });
+            expect(p.getPreviousPage()).toEqual(4);
         });
 
-        describe("hasNext()", () => {
-            it(`should return true`, () => {
-                expect(p.hasNext()).toEqual(true);
+        it(`should return the first page if there is no page before`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
             });
+            expect(p.getPreviousPage()).toEqual(1);
+        });
+    });
+
+    describe("getTotal()", () => {
+        const p = new PaginationHelper({
+            limit: 10,
+            page: 1,
+            total: 100
         });
 
-        describe("hasPrevious()", () => {
-            it(`should return false`, () => {
-                expect(p.hasPrevious()).toEqual(false);
+        it(`should return the total`, () => {
+            expect(p.getTotal()).toEqual(100);
+        });
+    });
+
+    describe("hasNext()", () => {
+
+        it(`should return true if there is a page after`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
             });
+            expect(p.hasNext()).toEqual(true);
+        });
+
+        it(`should return false if there is no page after`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 10,
+                total: 100
+            });
+            expect(p.hasNext()).toEqual(false);
+        });
+    });
+
+    describe("hasPrevious()", () => {
+
+        it(`should return true if there is a page before`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 5,
+                total: 100
+            });
+            expect(p.hasPrevious()).toEqual(true);
+        });
+
+        it(`should return false if there is no page before`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
+            });
+            expect(p.hasPrevious()).toEqual(false);
+        });
+    });
+
+    describe("isPageValid(page)", () => {
+        const p = new PaginationHelper({
+            limit: 10,
+            page: 1,
+            total: 100
+        });
+
+        it(`should return false if page is below 1`, () => {
+            expect(p.isPageValid(0)).toEqual(false);
+        });
+
+        it(`should return true if page is in valid range`, () => {
+            expect(p.isPageValid(1)).toEqual(true);
+        });
+
+        it(`should return false if page is above page count`, () => {
+            expect(p.isPageValid(300)).toEqual(false);
+        });
+    });
+
+    describe("next()", () => {
+
+        it(`should increase offset if there is a page after`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 5,
+                total: 100
+            }).next();
+            expect(p.getOffset()).toEqual(50);
+        });
+
+        it(`should not increase offset if there is no page after`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 10,
+                total: 100
+            }).next();
+            expect(p.getOffset()).toEqual(90);
+        });
+    });
+
+    describe("previous()", () => {
+
+        it(`should decrease offset if there is a page before`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 2,
+                total: 100
+            }).previous();
+            expect(p.getOffset()).toEqual(0);
+        });
+
+        it(`should not decrease offset if there is no page before`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
+            }).previous();
+            expect(p.getOffset()).toEqual(0);
+        });
+    });
+
+    describe("setLimit(limit)", () => {
+
+        it(`should change the limit per page`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
+            }).setLimit(25);
+            expect(p.getLimit()).toEqual(25);
+        });
+
+        it(`should change the limit to 0 if limit is negative`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
+            }).setLimit(-1);
+            expect(p.getLimit()).toEqual(0);
+        });
+    });
+
+    describe("setOffset(offset)", () => {
+
+        it(`should change the offset`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
+            }).setOffset(25);
+            expect(p.getOffset()).toEqual(25);
+        });
+
+        it(`should change the offset to 0 if offset is negative`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
+            }).setLimit(-1);
+            expect(p.getOffset()).toEqual(0);
+        });
+    });
+
+    describe("setPage(page)", () => {
+
+        it(`should change the page`, () => {
+            const p = new PaginationHelper({
+                limit: 10,
+                page: 1,
+                total: 100
+            }).setPage(5);
+            expect(p.getPage()).toEqual(5);
         });
     });
 });

@@ -4,8 +4,8 @@
   "description": "A pagination helper.",
   "license": "MIT",
   "keywords": [
-    "pagination",
-    "helper"
+    "helper",
+    "pagination"
   ],
   "author": {
     "name": "Karl Stein",
@@ -30,7 +30,8 @@
     "watch": "./node_modules/.bin/gulp watch"
   },
   "dependencies": {
-    "@jalik/extend": "^1.0.1"
+    "@jalik/extend": "^1.0.1",
+    "query-string": "^6.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

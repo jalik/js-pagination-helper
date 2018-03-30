@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -23,287 +23,287 @@
  *
  */
 
-import {extendRecursively as extend} from "@jalik/extend";
-import QueryString from "query-string";
+import { extendRecursively as extend } from '@jalik/extend';
+import QueryString from 'query-string';
 
 class PaginationHelper {
+  /**
+   * Pagination helper
+   * @param options
+   * @constructor
+   */
+  constructor(options) {
+    this.options = extend({
+      limit: 0,
+      offset: 0,
+      page: 1,
+      total: NaN,
+    }, options);
 
     /**
-     * Pagination helper
-     * @param options
-     * @constructor
+     * The limit per page
+     * @type {number}
+     * @private
      */
-    constructor(options) {
-        options = extend({
-            limit: 0,
-            offset: 0,
-            page: 1,
-            total: NaN
-        }, options);
-
-        /**
-         * The limit per page
-         * @type {number}
-         * @private
-         */
-        this._limit = options.limit;
-
-        /**
-         * The pagination offset
-         * @type {number}
-         * @private
-         */
-        this._offset = options.offset;
-
-        /**
-         * The total of the pagination
-         * @type {number}
-         * @private
-         */
-        this._total = options.total;
-
-        // Set the offset using the page number
-        if (options.page) {
-            this.setPage(options.page);
-        }
-    }
+    this.limit = options.limit;
 
     /**
-     * Formats a page link
-     * @param link
-     * @param page
-     * @param pageVar
-     * @return {string}
+     * The pagination offset
+     * @type {number}
+     * @private
      */
-    static formatPageLink(link, page, pageVar = "_PAGE_") {
-        return link.replace(new RegExp(pageVar, "g"), page);
-    }
+    this.offset = options.offset;
 
     /**
-     * Returns the closest valid page number
-     * @param page
-     * @return {number}
+     * The total of the pagination
+     * @type {number}
+     * @private
      */
-    getClosestPage(page) {
-        if (typeof page !== "number") {
-            page = Number(page);
-        }
+    this.total = options.total;
 
-        if (!Number.isNaN(page)) {
-            const count = this.getPageCount();
+    // Set the offset using the page number
+    if (options.page) {
+      this.setPage(options.page);
+    }
+  }
 
-            if (page > count) {
-                page = count;
-            } else if (page < 1) {
-                page = 1;
-            }
-        }
-        return page;
+  /**
+   * Formats a page link
+   * @param link
+   * @param page
+   * @param pageVar
+   * @return {string}
+   */
+  static formatPageLink(link, page, pageVar = '_PAGE_') {
+    return link.replace(new RegExp(pageVar, 'g'), page);
+  }
+
+  /**
+   * Returns the closest valid page number
+   * @param page
+   * @return {number}
+   */
+  getClosestPage(page) {
+    let closest = page;
+
+    if (typeof page !== 'number') {
+      closest = Number(page);
     }
 
-    /**
-     * Returns the last page
-     * @return {number}
-     */
-    getLastPage() {
-        return this.getPageCount();
+    if (!Number.isNaN(closest)) {
+      const count = this.getPageCount();
+
+      if (page > count) {
+        closest = count;
+      } else if (closest < 1) {
+        closest = 1;
+      }
     }
+    return closest;
+  }
 
-    /**
-     * Returns the pagination limit
-     * @return {number}
-     */
-    getLimit() {
-        return this._limit;
+  /**
+   * Returns the last page
+   * @return {number}
+   */
+  getLastPage() {
+    return this.getPageCount();
+  }
+
+  /**
+   * Returns the pagination limit
+   * @return {number}
+   */
+  getLimit() {
+    return this.limit;
+  }
+
+  /**
+   * Returns the next page
+   * @return {number}
+   */
+  getNextPage() {
+    return this.getPage() < this.getPageCount() ? this.getPage() + 1 : this.getLastPage();
+  }
+
+  /**
+   * Returns the current pagination offset
+   * @return {number}
+   */
+  getOffset() {
+    return this.offset;
+  }
+
+  /**
+   * Returns an offset from a page
+   * @param page
+   * @return {number}
+   */
+  getOffsetFromPage(page) {
+    return this.limit * (page - 1);
+  }
+
+  /**
+   * Returns the current page
+   * @return {number}
+   */
+  getPage() {
+    return this.getPageFromOffset(this.offset);
+  }
+
+  /**
+   * Returns the page count
+   * @return {number}
+   */
+  getPageCount() {
+    return this.total > 0 && this.limit > 0 ? Math.ceil(this.total / this.limit) : 1;
+  }
+
+  /**
+   * Returns a page from an offset
+   * @param offset
+   * @return {number}
+   */
+  getPageFromOffset(offset) {
+    return offset > 0 && this.limit > 0 ? Math.round(offset / this.limit) + 1 : 1;
+  }
+
+  /**
+   * Returns the previous page
+   * @return {number}
+   */
+  getPreviousPage() {
+    return Math.max(1, this.getPage() - 1);
+  }
+
+  /**
+   * Returns the result count
+   * @return {number}
+   */
+  getTotal() {
+    return this.total;
+  }
+
+  /**
+   * Checks if there is a page after the current page
+   * @return {boolean}
+   */
+  hasNext() {
+    return this.getPage() < this.getNextPage();
+  }
+
+  /**
+   * Checks if there is a page before the current page
+   * @return {boolean}
+   */
+  hasPrevious() {
+    return this.getPage() > this.getPreviousPage();
+  }
+
+  /**
+   * Checks if the page is valid
+   * @param page
+   * @return {boolean}
+   */
+  isPageValid(page) {
+    return typeof page === 'number'
+      && !Number.isNaN(page)
+      && page > 0
+      && page <= this.getPageCount();
+  }
+
+  /**
+   * Moves to the next page
+   * @return {PaginationHelper}
+   */
+  next() {
+    if (this.hasNext()) {
+      this.offset += this.limit;
     }
+    return this;
+  }
 
-    /**
-     * Returns the next page
-     * @return {number}
-     */
-    getNextPage() {
-        return this.getPage() < this.getPageCount() ? this.getPage() + 1 : this.getLastPage();
+  /**
+   * Adds the page param in a URL
+   * @param url
+   * @param queryString
+   * @param pageVar
+   * @return {string}
+   */
+  static preparePageLink(url, queryString, pageVar = '_PAGE_') {
+    const params = QueryString.parse(queryString);
+    params.page = pageVar;
+    return `${url}?${QueryString.stringify(params)}`;
+  }
+
+  /**
+   * Moves to the previous page
+   * @return {PaginationHelper}
+   */
+  previous() {
+    if (this.hasPrevious()) {
+      this.offset -= this.limit;
+    } else {
+      this.offset = 0;
     }
+    return this;
+  }
 
-    /**
-     * Returns the current pagination offset
-     * @return {number}
-     */
-    getOffset() {
-        return this._offset;
+  /**
+   * Sets the limit per page
+   * @param limit
+   * @return {PaginationHelper}
+   */
+  setLimit(limit) {
+    const number = Number(limit);
+
+    if (!Number.isNaN(number)) {
+      this.limit = Math.max(0, Math.round(number));
     }
+    return this;
+  }
 
-    /**
-     * Returns an offset from a page
-     * @param page
-     * @return {number}
-     */
-    getOffsetFromPage(page) {
-        return this._limit * (page - 1);
+  /**
+   * Sets the pagination offset
+   * @param offset
+   * @return {PaginationHelper}
+   */
+  setOffset(offset) {
+    const number = Number(offset);
+
+    if (!Number.isNaN(number)) {
+      this.offset = Math.max(0, Math.round(number));
     }
+    return this;
+  }
 
-    /**
-     * Returns the current page
-     * @return {number}
-     */
-    getPage() {
-        return this.getPageFromOffset(this._offset);
+  /**
+   * Sets the current page
+   * @param page
+   * @return {PaginationHelper}
+   */
+  setPage(page) {
+    const number = Number(page);
+
+    if (!Number.isNaN(number)) {
+      this.setOffset(this.getOffsetFromPage(number));
     }
+    return this;
+  }
 
-    /**
-     * Returns the page count
-     * @return {number}
-     */
-    getPageCount() {
-        return this._total > 0 && this._limit > 0 ? Math.ceil(this._total / this._limit) : 1;
+  /**
+   * Sets the result count
+   * @param total
+   * @return {PaginationHelper}
+   */
+  setTotal(total) {
+    const number = Number(total);
+
+    if (!Number.isNaN(number)) {
+      this.total = Math.max(0, Math.round(number));
     }
-
-    /**
-     * Returns a page from an offset
-     * @param offset
-     * @return {number}
-     */
-    getPageFromOffset(offset) {
-        return offset > 0 && this._limit > 0 ? Math.round(offset / this._limit) + 1 : 1;
-    }
-
-    /**
-     * Returns the previous page
-     * @return {number}
-     */
-    getPreviousPage() {
-        return Math.max(1, this.getPage() - 1);
-    }
-
-    /**
-     * Returns the result count
-     * @return {number}
-     */
-    getTotal() {
-        return this._total;
-    }
-
-    /**
-     * Checks if there is a page after the current page
-     * @return {boolean}
-     */
-    hasNext() {
-        return this.getPage() < this.getNextPage();
-    }
-
-    /**
-     * Checks if there is a page before the current page
-     * @return {boolean}
-     */
-    hasPrevious() {
-        return this.getPage() > this.getPreviousPage();
-    }
-
-    /**
-     * Checks if the page is valid
-     * @param page
-     * @return {boolean}
-     */
-    isPageValid(page) {
-        return typeof page === "number"
-            && !Number.isNaN(page)
-            && page > 0
-            && page <= this.getPageCount();
-    }
-
-    /**
-     * Moves to the next page
-     * @return {PaginationHelper}
-     */
-    next() {
-        if (this.hasNext()) {
-            this._offset += this._limit;
-        }
-        return this;
-    }
-
-    /**
-     * Adds the page param in a URL
-     * @param url
-     * @param queryString
-     * @param pageVar
-     * @return {string}
-     */
-    static preparePageLink(url, queryString, pageVar = "_PAGE_") {
-        const params = QueryString.parse(queryString);
-        params.page = "_PAGE_";
-        queryString = QueryString.stringify(params);
-        return `${url}?${queryString}`;
-    }
-
-    /**
-     * Moves to the previous page
-     * @return {PaginationHelper}
-     */
-    previous() {
-        if (this.hasPrevious()) {
-            this._offset -= this._limit;
-        } else {
-            this._offset = 0;
-        }
-        return this;
-    }
-
-    /**
-     * Sets the limit per page
-     * @param limit
-     * @return {PaginationHelper}
-     */
-    setLimit(limit) {
-        limit = Number(limit);
-
-        if (!Number.isNaN(limit)) {
-            this._limit = Math.max(0, Math.round(limit));
-        }
-        return this;
-    }
-
-    /**
-     * Sets the pagination offset
-     * @param offset
-     * @return {PaginationHelper}
-     */
-    setOffset(offset) {
-        offset = Number(offset);
-
-        if (!Number.isNaN(offset)) {
-            this._offset = Math.max(0, Math.round(offset));
-        }
-        return this;
-    }
-
-    /**
-     * Sets the current page
-     * @param page
-     * @return {PaginationHelper}
-     */
-    setPage(page) {
-        page = Number(page);
-
-        if (!Number.isNaN(page)) {
-            this.setOffset(this.getOffsetFromPage(page));
-        }
-        return this;
-    }
-
-    /**
-     * Sets the result count
-     * @param total
-     * @return {PaginationHelper}
-     */
-    setTotal(total) {
-        total = Number(total);
-
-        if (!Number.isNaN(total)) {
-            this._total = Math.max(0, Math.round(total));
-        }
-        return this;
-    }
+    return this;
+  }
 }
 
 export default PaginationHelper;

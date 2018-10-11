@@ -1,4 +1,4 @@
-# Pagination Helper
+# @jalik/pagination-helper
 
 A helper to handle pagination easily.
 

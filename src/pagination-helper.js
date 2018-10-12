@@ -73,8 +73,8 @@ class PaginationHelper {
    * @param pageVar
    * @return {string}
    */
-  static formatPageLink(link, page, pageVar = '_PAGE_') {
-    return link.replace(new RegExp(pageVar, 'g'), page);
+  static formatPageLink(link, page, pageVar) {
+    return link.replace(new RegExp((pageVar || '_PAGE_'), 'g'), page);
   }
 
   /**
@@ -229,9 +229,9 @@ class PaginationHelper {
    * @param pageVar
    * @return {string}
    */
-  static preparePageLink(url, queryString, pageVar = '_PAGE_') {
+  static preparePageLink(url, queryString, pageVar) {
     const params = QueryString.parse(queryString);
-    params.page = pageVar;
+    params.page = pageVar || '_PAGE_';
     return `${url}?${QueryString.stringify(params)}`;
   }
 

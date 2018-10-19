@@ -4,9 +4,11 @@ A helper to handle pagination easily.
 
 ## Introduction
 
-Pagination is not a complex thing, but it is tedious when you have to repeat the same code everywhere, plus it can be a pain to maintain, so using a helper is the best thing to do if you don't want to waste your time.
+Using a helper class to manage your paginations is the best thing you can do to minimize your code, making it simpler and more readable, with the advantage to reduce the risk of creating bugs by writing your own pagination methods.
 
-**This library is tested with unit tests.**
+It works nice with any Javascript environment (browser, nodejs) and framework (React, Angular, Vue).
+
+**This library has been unit tested.**
 
 ## Creating a pagination helper
 
@@ -15,36 +17,87 @@ To create your first pagination helper, take look at the code below.
 ```js
 import PaginationHelper from "@jalik/pagination-helper";
 
-const helper = new PaginationHelper({
-    // The limit per page
+// Creates the pagination.
+const pagination = new PaginationHelper({
+    // Set the limit per page.
     limit: 10,
-    // The results offset
+    // Set the initial offset
+    // used to calculate the page.
     offset: 0,
-    // The current page
+    // Or set the current page,
+    // which will calculate the offset automatically.
     page: 1,
-    // The result count
+    // Set the total number of elements
+    // used to calculate page count.
     total: 200
 });
 
-// Then do what you want with the available methods
-helper.getClosestPage(256); // returns 200
-helper.getLastPage(); // returns 10
-helper.getLimit();
-helper.getNextPage();
-helper.getOffsetFromPage(10); // returns 90
-helper.getOffset();
-helper.getPage();
-helper.getPageCount();
-helper.getPageFromOffset(10); // returns 2
-helper.getPreviousPage();
-helper.getTotal();
-helper.hasNext();
-helper.hasPrevious();
-helper.isPageValid(50); // returns true
-helper.setLimit(25);
-helper.setOffset(50);
-helper.setPage(2);
-helper.setTotal(999);
+// Compares with another pagination.
+// In this case, it returns false because the limit is different.
+pagination.equal(new PaginationHelper({limit:15, page:1, total:200}));
+
+// Returns the closest valid page.
+// In this case, it returns 20 since the last page is 20.
+pagination.getClosestPage(42);
+
+// Returns the last page.
+// In this case, it returns 20 (20 = 200 / 10).
+pagination.getLastPage();
+
+// Returns the current limit.
+pagination.getLimit();
+
+// Returns the next page.
+pagination.getNextPage();
+
+// Returns the corresponding offset of a page.
+// In this case, it returns 40 (40 = (5 * 10) - 10).
+pagination.getOffsetFromPage(5);
+
+// Returns the current offset.
+pagination.getOffset();
+
+// Returns the current page.
+pagination.getPage();
+
+// Returns the page count.
+pagination.getPageCount();
+
+// Returns the corresponding page of an offset.
+// In this case, it returns 3 (3 = (20 / 10) + 1).
+pagination.getPageFromOffset(20);
+
+// Returns the previous page. 
+pagination.getPreviousPage();
+
+// Returns the total number of elements of the pagination.
+pagination.getTotal();
+
+// Checks if there is a previous page.
+// This would return false if page was the last.
+pagination.hasNext();
+
+// Checks if there is a previous page.
+// This would return false if page was the first.
+pagination.hasPrevious();
+
+// Checks if page is between 1 and page count (inclusive).
+// In this case, it returns false because limit is 10 and total is 200,
+// which gives a total of 20 pages and 50 is above this value.
+pagination.isPageValid(50);
+
+// Sets the pagination limit (used to calculate page count).
+pagination.setLimit(25);
+
+// Sets the offset (used to calculate the page.
+// Note: you may prefer to use setPage() instead of setOffset().
+pagination.setOffset(20);
+
+// Sets the current page (same as setOffset(20)).
+pagination.setPage(2);
+
+// Sets the total number of elements of the pagination (used to calculate page count).
+pagination.setTotal(999);
 ```
 
 ## Changelog

@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.1
+- Updates dependencies
+
 ## v1.1.0
 - Adds method `pagination.equal(pagination)` to check if two paginations are equals
 

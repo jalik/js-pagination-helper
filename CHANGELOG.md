@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.0
+- Lib available in ES6+ syntax (see `src` folder) to enable auto-completion in IDEs
+- Updates dependencies
+
 ## v1.1.1
 - Updates dependencies
 

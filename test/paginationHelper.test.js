@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import PaginationHelper from '../src/index';
+import PaginationHelper from '../src/paginationHelper';
 
 describe('PaginationHelper', () => {
   it('should be importable from package', () => {

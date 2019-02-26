@@ -25,6 +25,9 @@
 import deepExtend from '@jalik/deep-extend';
 import QueryString from 'query-string';
 
+/**
+ * A helper for pagination.
+ */
 class PaginationHelper {
   /**
    * Pagination helper

@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/jalik/js-pagination-helper/issues"
   },
-  "main": "dist/index.js",
+  "main": "dist/paginationHelper.js",
   "scripts": {
     "build": "npx gulp build",
     "lint": "npx eslint .",

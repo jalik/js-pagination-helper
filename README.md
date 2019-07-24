@@ -1,4 +1,10 @@
 # @jalik/pagination-helper
+![GitHub package.json version](https://img.shields.io/github/package-json/v/jalik/js-pagination-helper.svg)
+[![Build Status](https://travis-ci.com/jalik/js-pagination-helper.svg?branch=master)](https://travis-ci.com/jalik/js-pagination-helper)
+![GitHub](https://img.shields.io/github/license/jalik/js-pagination-helper.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/jalik/js-pagination-helper.svg)
+[![GitHub issues](https://img.shields.io/github/issues/jalik/js-pagination-helper.svg)](https://github.com/jalik/js-pagination-helper/issues)
+![npm](https://img.shields.io/npm/dt/@jalik/pagination-helper.svg)
 
 A helper to handle pagination easily.
 
@@ -7,8 +13,6 @@ A helper to handle pagination easily.
 Using a helper class to manage your paginations is the best thing you can do to minimize your code, making it simpler and more readable, with the advantage to reduce the risk of creating bugs by writing your own pagination methods.
 
 It works nice with any Javascript environment (browser, nodejs) and framework (React, Angular, Vue).
-
-**This library has been unit tested.**
 
 ## Creating a pagination helper
 

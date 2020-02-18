@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2019 Karl STEIN
+ * Copyright (c) 2020 Karl STEIN
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@
  */
 
 import deepExtend from '@jalik/deep-extend';
-import QueryString from 'query-string';
+import querystring from 'qs';
 
 /**
  * A helper for pagination.
@@ -88,9 +88,9 @@ class PaginationHelper {
    * @return {string}
    */
   static preparePageLink(url, queryString, pageVar) {
-    const params = QueryString.parse(queryString);
+    const params = querystring.parse(queryString);
     params.page = pageVar || '_PAGE_';
-    return `${url}?${QueryString.stringify(params)}`;
+    return `${url}?${querystring.stringify(params)}`;
   }
 
   /**

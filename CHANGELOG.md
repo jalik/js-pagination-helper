@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.0
+- Removes method `formatPageLink()`
+- Removes method `preparePageLink()`
+- Updates dependencies
+
 ## v1.2.4
 - Updates dependencies
 
@@ -26,7 +31,7 @@
 - Updates dependencies
 
 ## v1.0.1
-- Reformats code using `airbnb` ESLint preset
+- Formats code using `airbnb` ESLint preset
 
 ## v1.0.0
 - First public release

@@ -23,7 +23,6 @@
  */
 
 import deepExtend from '@jalik/deep-extend';
-import querystring from 'qs';
 
 /**
  * A helper for pagination.
@@ -78,19 +77,6 @@ class PaginationHelper {
    */
   static formatPageLink(link, page, pageVar) {
     return link.replace(new RegExp((pageVar || '_PAGE_'), 'g'), page);
-  }
-
-  /**
-   * Adds the page param in a URL
-   * @param url
-   * @param queryString
-   * @param pageVar
-   * @return {string}
-   */
-  static preparePageLink(url, queryString, pageVar) {
-    const params = querystring.parse(queryString);
-    params.page = pageVar || '_PAGE_';
-    return `${url}?${querystring.stringify(params)}`;
   }
 
   /**

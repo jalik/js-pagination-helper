@@ -69,17 +69,6 @@ class PaginationHelper {
   }
 
   /**
-   * Formats a page link
-   * @param link
-   * @param page
-   * @param pageVar
-   * @return {string}
-   */
-  static formatPageLink(link, page, pageVar) {
-    return link.replace(new RegExp((pageVar || '_PAGE_'), 'g'), page);
-  }
-
-  /**
    * Returns the closest valid page number
    * @param page
    * @return {number}

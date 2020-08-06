@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.1
+- Updates dependencies
+
 ## v2.0.0
 - Removes method `formatPageLink()`
 - Removes method `preparePageLink()`

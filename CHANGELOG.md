@@ -1,37 +1,40 @@
 # Changelog
 
+## v2.0.2
+- Upgrades dependencies
+
 ## v2.0.1
-- Updates dependencies
+- Upgrades dependencies
 
 ## v2.0.0
 - Removes method `formatPageLink()`
 - Removes method `preparePageLink()`
-- Updates dependencies
+- Upgrades dependencies
 
 ## v1.2.4
-- Updates dependencies
+- Upgrades dependencies
 
 ## v1.2.3
-- Updates dependencies
+- Upgrades dependencies
 
 ## v1.2.2
-- Updates dependencies
+- Upgrades dependencies
 
 ## v1.2.1
-- Updates dependencies
+- Upgrades dependencies
 
 ## v1.2.0
 - Lib available in ES6+ syntax (see `src` folder) to enable auto-completion in IDEs
-- Updates dependencies
+- Upgrades dependencies
 
 ## v1.1.1
-- Updates dependencies
+- Upgrades dependencies
 
 ## v1.1.0
 - Adds method `pagination.equal(pagination)` to check if two paginations are equals
 
 ## v1.0.2
-- Updates dependencies
+- Upgrades dependencies
 
 ## v1.0.1
 - Formats code using `airbnb` ESLint preset

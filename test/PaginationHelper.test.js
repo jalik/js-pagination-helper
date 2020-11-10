@@ -3,7 +3,7 @@
  * Copyright (c) 2020 Karl STEIN
  */
 
-import PaginationHelper from '../src/pagination-helper';
+import PaginationHelper from '../src/PaginationHelper';
 
 describe('PaginationHelper', () => {
   it('should be importable from package', () => {

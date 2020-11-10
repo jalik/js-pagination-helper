@@ -20,6 +20,8 @@
     "url": "https://github.com/jalik/js-pagination-helper/issues"
   },
   "main": "dist/PaginationHelper.js",
+  "esnext": "src/PaginationHelper.js",
+  "sideEffects": false,
   "scripts": {
     "build": "babel src -d dist",
     "clean": "rimraf dist",

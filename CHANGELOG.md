@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.4
+- Upgraded dependencies
+
 ## v2.0.3
 - Added `esnext` and `sideEffects` in package.json
 - Renamed pagination-helper.js to PaginationHelper.js

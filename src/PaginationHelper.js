@@ -3,8 +3,6 @@
  * Copyright (c) 2020 Karl STEIN
  */
 
-import deepExtend from '@jalik/deep-extend';
-
 /**
  * A helper for pagination.
  */
@@ -15,36 +13,32 @@ class PaginationHelper {
    * @constructor
    */
   constructor(options) {
-    this.options = deepExtend({
-      limit: 0,
-      offset: 0,
-      page: 1,
-      total: NaN,
-    }, options);
-
     /**
      * The limit per page
      * @type {number}
      * @private
      */
-    this.limit = options.limit;
+    this.limit = typeof options.limit === 'number'
+      ? options.limit : 0;
 
     /**
      * The pagination offset
      * @type {number}
      * @private
      */
-    this.offset = options.offset;
+    this.offset = typeof options.offset === 'number'
+      ? options.offset : 0;
 
     /**
      * The total of the pagination
      * @type {number}
      * @private
      */
-    this.total = options.total;
+    this.total = typeof options.total === 'number'
+      ? options.total : null;
 
     // Set the offset using the page number
-    if (options.page) {
+    if (typeof options.page === 'number') {
       this.setPage(options.page);
     }
   }

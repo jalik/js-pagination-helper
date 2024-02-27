@@ -121,6 +121,17 @@ describe('getNextPage()', () => {
     })
     expect(p.getNextPage()).toEqual(10)
   })
+
+  describe('with argument > 1', () => {
+    it('should return the page + N if there is a page after', () => {
+      const p = new OffsetPagination({
+        limit: 10,
+        page: 5,
+        totalElements: 100
+      })
+      expect(p.getNextPage(2)).toEqual(7)
+    })
+  })
 })
 
 describe('getOffset()', () => {
@@ -182,6 +193,17 @@ describe('getPreviousPage()', () => {
     })
     expect(p.getPreviousPage()).toEqual(1)
   })
+
+  describe('with argument > 1', () => {
+    it('should return the page - N if there is a page before', () => {
+      const p = new OffsetPagination({
+        limit: 10,
+        page: 5,
+        totalElements: 100
+      })
+      expect(p.getPreviousPage(2)).toEqual(3)
+    })
+  })
 })
 
 describe('getTotalElements()', () => {
@@ -200,7 +222,7 @@ describe('hasNext()', () => {
   it('should return true if there is a page after', () => {
     const p = new OffsetPagination({
       limit: 10,
-      page: 1,
+      page: 5,
       totalElements: 100
     })
     expect(p.hasNext()).toEqual(true)
@@ -213,6 +235,17 @@ describe('hasNext()', () => {
       totalElements: 100
     })
     expect(p.hasNext()).toEqual(false)
+  })
+
+  describe('with argument > 1', () => {
+    it('should return true if there is a page after', () => {
+      const p = new OffsetPagination({
+        limit: 10,
+        page: 5,
+        totalElements: 100
+      })
+      expect(p.hasNext(2)).toEqual(true)
+    })
   })
 })
 
@@ -233,6 +266,17 @@ describe('hasPrevious()', () => {
       totalElements: 100
     })
     expect(p.hasPrevious()).toEqual(false)
+  })
+
+  describe('with argument > 1', () => {
+    it('should return true if there is a page before', () => {
+      const p = new OffsetPagination({
+        limit: 10,
+        page: 5,
+        totalElements: 100
+      })
+      expect(p.hasPrevious(2)).toEqual(true)
+    })
   })
 })
 

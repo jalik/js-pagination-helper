@@ -74,10 +74,8 @@ export class OffsetPagination {
   /**
    * Returns the next page.
    */
-  getNextPage (): number {
-    return this.getPage() < this.getTotalPages()
-      ? this.getPage() + 1
-      : this.getLastPage()
+  getNextPage (increment: number = 1): number {
+    return Math.min(this.getLastPage(), this.getPage() + increment)
   }
 
   /**
@@ -115,8 +113,8 @@ export class OffsetPagination {
   /**
    * Returns the previous page.
    */
-  getPreviousPage (): number {
-    return Math.max(1, this.getPage() - 1)
+  getPreviousPage (increment: number = 1): number {
+    return Math.max(1, this.getPage() - increment)
   }
 
   /**
@@ -138,15 +136,15 @@ export class OffsetPagination {
   /**
    * Checks if there is a page after.
    */
-  hasNext (): boolean {
-    return this.getPage() < this.getNextPage()
+  hasNext (increment: number = 1): boolean {
+    return this.getPage() < this.getNextPage(increment)
   }
 
   /**
    * Checks if there is a page before.
    */
-  hasPrevious (): boolean {
-    return this.getPage() > this.getPreviousPage()
+  hasPrevious (increment: number = 1): boolean {
+    return this.getPage() > this.getPreviousPage(increment)
   }
 
   /**

@@ -17,7 +17,7 @@ It works nice with any Javascript environment (browser, nodejs) and framework (R
 ## Creating an offset pagination
 
 ```ts
-import OffsetPagination from '@jalik/pagination-helper'
+import { OffsetPagination } from '@jalik/pagination-helper'
 
 // Creates the pagination.
 const pagination = new OffsetPagination({

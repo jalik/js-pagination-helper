@@ -12,7 +12,7 @@ export type OffsetPaginationOptions = {
   totalElements: number
 }
 
-class OffsetPagination {
+export class OffsetPagination {
   private limit!: number
   private offset!: number
   private totalElements!: number
@@ -213,6 +213,3 @@ class OffsetPagination {
     return this
   }
 }
-
-// todo use named export
-export default OffsetPagination

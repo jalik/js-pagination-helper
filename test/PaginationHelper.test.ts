@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it } from '@jest/globals'
-import OffsetPagination from '../src/PaginationHelper'
+import { OffsetPagination } from '../src/PaginationHelper'
 
 describe('OffsetPagination', () => {
   it('should be importable from package', () => {

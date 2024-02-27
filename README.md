@@ -36,7 +36,7 @@ const pagination = new PaginationHelper({
 
 // Compares with another pagination.
 // In this case, it returns false because the limit is different.
-pagination.equal(new PaginationHelper({ limit: 15, page: 1, totalElements: 200 }))
+pagination.equals(new PaginationHelper({ limit: 15, page: 1, totalElements: 200 }))
 
 // Returns the closest valid page.
 // In this case, it returns 20 since the last page is 20.

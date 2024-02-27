@@ -49,9 +49,8 @@ class PaginationHelper {
   /**
    * Compares with another pagination to see if they are equals.
    * @param pagination
-   * todo rename to equals
    */
-  equal (pagination: PaginationHelper): boolean {
+  equals (pagination: PaginationHelper): boolean {
     return this.getLimit() === pagination.getLimit() &&
       this.getOffset() === pagination.getOffset() &&
       this.getTotalElements() === pagination.getTotalElements()

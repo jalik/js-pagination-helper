@@ -12,7 +12,7 @@ describe('PaginationHelper', () => {
   })
 })
 
-describe('equal(pagination)', () => {
+describe('equals(pagination)', () => {
   const p1 = new PaginationHelper({
     limit: 10,
     page: 1,
@@ -25,7 +25,7 @@ describe('equal(pagination)', () => {
   })
 
   it('should return true if paginations limit, offset and total are equals', () => {
-    expect(p1.equal(p2)).toEqual(true)
+    expect(p1.equals(p2)).toEqual(true)
   })
 
   it('should return true if paginations limit are different', () => {
@@ -34,7 +34,7 @@ describe('equal(pagination)', () => {
       page: 1,
       totalElements: 100
     })
-    expect(p1.equal(p3)).toEqual(false)
+    expect(p1.equals(p3)).toEqual(false)
   })
 
   it('should return true if paginations page are different', () => {
@@ -43,7 +43,7 @@ describe('equal(pagination)', () => {
       page: 2,
       totalElements: 100
     })
-    expect(p1.equal(p4)).toEqual(false)
+    expect(p1.equals(p4)).toEqual(false)
   })
 
   it('should return true if paginations total are different', () => {
@@ -52,7 +52,7 @@ describe('equal(pagination)', () => {
       page: 1,
       totalElements: 50
     })
-    expect(p1.equal(p5)).toEqual(false)
+    expect(p1.equals(p5)).toEqual(false)
   })
 })
 

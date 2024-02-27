@@ -14,15 +14,13 @@ Using a helper class to manage your paginations is the best thing you can do to 
 
 It works nice with any Javascript environment (browser, nodejs) and framework (React, Angular, Vue).
 
-## Creating a pagination helper
-
-To create your first pagination helper, take look at the code below.
+## Creating an offset pagination
 
 ```ts
-import PaginationHelper from '@jalik/pagination-helper'
+import OffsetPagination from '@jalik/pagination-helper'
 
 // Creates the pagination.
-const pagination = new PaginationHelper({
+const pagination = new OffsetPagination({
   // Set the limit per page.
   limit: 10,
   // Set the initial offset used to calculate the page.

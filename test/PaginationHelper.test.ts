@@ -4,21 +4,21 @@
  */
 
 import { describe, expect, it } from '@jest/globals'
-import PaginationHelper from '../src/PaginationHelper'
+import OffsetPagination from '../src/PaginationHelper'
 
-describe('PaginationHelper', () => {
+describe('OffsetPagination', () => {
   it('should be importable from package', () => {
-    expect(typeof PaginationHelper).toEqual('function')
+    expect(typeof OffsetPagination).toEqual('function')
   })
 })
 
 describe('equals(pagination)', () => {
-  const p1 = new PaginationHelper({
+  const p1 = new OffsetPagination({
     limit: 10,
     page: 1,
     totalElements: 100
   })
-  const p2 = new PaginationHelper({
+  const p2 = new OffsetPagination({
     limit: 10,
     page: 1,
     totalElements: 100
@@ -29,7 +29,7 @@ describe('equals(pagination)', () => {
   })
 
   it('should return true if paginations limit are different', () => {
-    const p3 = new PaginationHelper({
+    const p3 = new OffsetPagination({
       limit: 20,
       page: 1,
       totalElements: 100
@@ -38,7 +38,7 @@ describe('equals(pagination)', () => {
   })
 
   it('should return true if paginations page are different', () => {
-    const p4 = new PaginationHelper({
+    const p4 = new OffsetPagination({
       limit: 10,
       page: 2,
       totalElements: 100
@@ -47,7 +47,7 @@ describe('equals(pagination)', () => {
   })
 
   it('should return true if paginations total are different', () => {
-    const p5 = new PaginationHelper({
+    const p5 = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 50
@@ -57,7 +57,7 @@ describe('equals(pagination)', () => {
 })
 
 describe('getClosestPage(page)', () => {
-  const p = new PaginationHelper({
+  const p = new OffsetPagination({
     limit: 10,
     page: 1,
     totalElements: 100
@@ -77,7 +77,7 @@ describe('getClosestPage(page)', () => {
 })
 
 describe('getLastPage()', () => {
-  const p = new PaginationHelper({
+  const p = new OffsetPagination({
     limit: 10,
     page: 1,
     totalElements: 100
@@ -89,7 +89,7 @@ describe('getLastPage()', () => {
 })
 
 describe('getLimit()', () => {
-  const p = new PaginationHelper({
+  const p = new OffsetPagination({
     limit: 5,
     page: 1,
     totalElements: 100
@@ -102,7 +102,7 @@ describe('getLimit()', () => {
 
 describe('getNextPage()', () => {
   it('should return the next page if there is a page after', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 5,
       totalElements: 100
@@ -111,7 +111,7 @@ describe('getNextPage()', () => {
   })
 
   it('should return the last page if there is no page after', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 10,
       totalElements: 100
@@ -122,12 +122,12 @@ describe('getNextPage()', () => {
 
 describe('getOffset()', () => {
   it('should return the offset', () => {
-    const p1 = new PaginationHelper({
+    const p1 = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
     })
-    const p2 = new PaginationHelper({
+    const p2 = new OffsetPagination({
       limit: 10,
       page: 5,
       totalElements: 100
@@ -138,7 +138,7 @@ describe('getOffset()', () => {
 })
 
 describe('getPage()', () => {
-  const p = new PaginationHelper({
+  const p = new OffsetPagination({
     limit: 10,
     page: 3,
     totalElements: 100
@@ -150,7 +150,7 @@ describe('getPage()', () => {
 })
 
 describe('getTotalPages()', () => {
-  const p = new PaginationHelper({
+  const p = new OffsetPagination({
     limit: 10,
     page: 1,
     totalElements: 100
@@ -163,7 +163,7 @@ describe('getTotalPages()', () => {
 
 describe('getPreviousPage()', () => {
   it('should return the previous page if there is a page before', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 5,
       totalElements: 100
@@ -172,7 +172,7 @@ describe('getPreviousPage()', () => {
   })
 
   it('should return the first page if there is no page before', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -182,7 +182,7 @@ describe('getPreviousPage()', () => {
 })
 
 describe('getTotalElements()', () => {
-  const p = new PaginationHelper({
+  const p = new OffsetPagination({
     limit: 10,
     page: 1,
     totalElements: 100
@@ -195,7 +195,7 @@ describe('getTotalElements()', () => {
 
 describe('hasNext()', () => {
   it('should return true if there is a page after', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -204,7 +204,7 @@ describe('hasNext()', () => {
   })
 
   it('should return false if there is no page after', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 10,
       totalElements: 100
@@ -215,7 +215,7 @@ describe('hasNext()', () => {
 
 describe('hasPrevious()', () => {
   it('should return true if there is a page before', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 5,
       totalElements: 100
@@ -224,7 +224,7 @@ describe('hasPrevious()', () => {
   })
 
   it('should return false if there is no page before', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -234,7 +234,7 @@ describe('hasPrevious()', () => {
 })
 
 describe('isPageValid(page)', () => {
-  const p = new PaginationHelper({
+  const p = new OffsetPagination({
     limit: 10,
     page: 1,
     totalElements: 100
@@ -255,7 +255,7 @@ describe('isPageValid(page)', () => {
 
 describe('next()', () => {
   it('should increase offset if there is a page after', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 5,
       totalElements: 100
@@ -265,7 +265,7 @@ describe('next()', () => {
   })
 
   it('should not increase offset if there is no page after', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 10,
       totalElements: 100
@@ -277,7 +277,7 @@ describe('next()', () => {
 
 describe('previous()', () => {
   it('should decrease offset if there is a page before', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 2,
       totalElements: 100
@@ -287,7 +287,7 @@ describe('previous()', () => {
   })
 
   it('should not decrease offset if there is no page before', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -299,7 +299,7 @@ describe('previous()', () => {
 
 describe('setLimit(limit)', () => {
   it('should change the limit per page', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -309,7 +309,7 @@ describe('setLimit(limit)', () => {
   })
 
   it('should change the limit to 0 if limit is negative', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -321,7 +321,7 @@ describe('setLimit(limit)', () => {
 
 describe('setOffset(offset)', () => {
   it('should change the offset', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -331,7 +331,7 @@ describe('setOffset(offset)', () => {
   })
 
   it('should change the offset to 0 if offset is negative', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -343,7 +343,7 @@ describe('setOffset(offset)', () => {
 
 describe('setPage(page)', () => {
   it('should change the page', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 100
@@ -355,7 +355,7 @@ describe('setPage(page)', () => {
 
 describe('setTotalElements(total)', () => {
   it('should change the total of pages', () => {
-    const p = new PaginationHelper({
+    const p = new OffsetPagination({
       limit: 10,
       page: 1,
       totalElements: 0

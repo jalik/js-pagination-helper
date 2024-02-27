@@ -3,7 +3,7 @@
  * Copyright (c) 2020 Karl STEIN
  */
 
-export type PaginationHelperOptions = {
+export type OffsetPaginationOptions = {
   limit: number
   offset?: number
   // todo add minPage
@@ -12,13 +12,12 @@ export type PaginationHelperOptions = {
   totalElements: number
 }
 
-// todo rename to OffsetPagination
-class PaginationHelper {
+class OffsetPagination {
   private limit!: number
   private offset!: number
   private totalElements!: number
 
-  constructor (options: PaginationHelperOptions) {
+  constructor (options: OffsetPaginationOptions) {
     this.setLimit(options.limit)
     this.setTotalElements(options.totalElements)
 
@@ -50,7 +49,7 @@ class PaginationHelper {
    * Compares with another pagination to see if they are equals.
    * @param pagination
    */
-  equals (pagination: PaginationHelper): boolean {
+  equals (pagination: OffsetPagination): boolean {
     return this.getLimit() === pagination.getLimit() &&
       this.getOffset() === pagination.getOffset() &&
       this.getTotalElements() === pagination.getTotalElements()
@@ -216,4 +215,4 @@ class PaginationHelper {
 }
 
 // todo use named export
-export default PaginationHelper
+export default OffsetPagination

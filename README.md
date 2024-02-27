@@ -23,7 +23,9 @@ import { OffsetPagination } from '@jalik/pagination-helper'
 const pagination = new OffsetPagination({
   // Set the limit per page.
   limit: 10,
-  // Set the initial offset used to calculate the page.
+  // (optional) Set the first page (1 by default) 
+  minPage: 1,
+  // (optional) Set the initial offset (0 by default).
   offset: 0,
   // Or set the page number, to calculate the offset automatically.
   // If present, it will be used instead of offset.
@@ -39,6 +41,9 @@ pagination.equals(new OffsetPagination({ limit: 15, page: 1, totalElements: 200 
 // Returns the closest valid page.
 // In this case, it returns 20 since the last page is 20.
 pagination.getClosestPage(42)
+
+// Returns the first page (see minPage option)
+pagination.getFirstPage()
 
 // Returns the last page.
 // In this case, it returns 20 (20 = 200 / 10).

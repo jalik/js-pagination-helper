@@ -5,15 +5,15 @@
 
 export type OffsetPaginationOptions = {
   limit: number
+  minPage?: number
   offset?: number
-  // todo add minPage
-  // todo rename to number
   page?: number
   totalElements: number
 }
 
 export class OffsetPagination {
   private limit!: number
+  private readonly minPage: number
   private offset!: number
   private totalElements!: number
 
@@ -21,30 +21,21 @@ export class OffsetPagination {
     this.setLimit(options.limit)
     this.setTotalElements(options.totalElements)
 
+    this.minPage = options.minPage != null && !Number.isNaN(options.minPage)
+      ? options.minPage
+      : 1
+
+    this.setLimit(options.limit)
+    this.setTotalElements(options.totalElements)
+
     // Set the offset using the page number
-    if (options.page != null) {
+    if (options.page != null && !Number.isNaN(options.page)) {
       this.setPage(options.page)
-    } else if (options.offset != null) {
+    } else if (options.offset != null && !Number.isNaN(options.offset)) {
       this.setOffset(options.offset)
     } else {
       this.offset = 0
     }
-  }
-
-  /**
-   * Returns the closest valid page number.
-   * @param page
-   */
-  getClosestPage (page: number): number {
-    let closest = page
-    const count = this.getTotalPages()
-
-    if (page > count) {
-      closest = count
-    } else if (closest < 1) {
-      closest = 1
-    }
-    return closest
   }
 
   /**
@@ -58,10 +49,35 @@ export class OffsetPagination {
   }
 
   /**
+   * Returns the closest valid page number.
+   * @param page
+   */
+  getClosestPage (page: number): number {
+    let closest = page
+    const firstPage = this.getFirstPage()
+    const lastPage = this.getLastPage()
+
+    if (page > lastPage) {
+      closest = lastPage
+    } else if (page < firstPage) {
+      closest = firstPage
+    }
+    return closest
+  }
+
+  /**
+   * Returns the first page.
+   */
+  getFirstPage (): number {
+    return this.minPage
+  }
+
+  /**
    * Returns the last page.
    */
   getLastPage (): number {
-    return this.getTotalPages()
+    const shift = Math.abs(1 - this.minPage)
+    return this.getTotalPages() - shift
   }
 
   /**
@@ -90,7 +106,7 @@ export class OffsetPagination {
    * @param page
    */
   getOffsetFromPage (page: number): number {
-    return this.limit * (page - 1)
+    return this.limit * (page - this.minPage)
   }
 
   /**
@@ -106,21 +122,21 @@ export class OffsetPagination {
    */
   getPageFromOffset (offset: number): number {
     return offset > 0 && this.limit > 0
-      ? Math.round(offset / this.limit) + 1
-      : 1
+      ? Math.round(offset / this.limit) + this.minPage
+      : this.minPage
   }
 
   /**
    * Returns the previous page.
    */
   getPreviousPage (increment: number = 1): number {
-    return Math.max(1, this.getPage() - increment)
+    return Math.max(this.minPage, this.getPage() - increment)
   }
 
   /**
    * Returns the number of elements.
    */
-  getTotalElements (): number | null {
+  getTotalElements (): number {
     return this.totalElements
   }
 
@@ -152,7 +168,7 @@ export class OffsetPagination {
    * @param page
    */
   isPageValid (page: number): boolean {
-    return page > 0 && page <= this.getTotalPages()
+    return page >= this.getFirstPage() && page <= this.getLastPage()
   }
 
   /**

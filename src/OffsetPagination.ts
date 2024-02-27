@@ -1,6 +1,6 @@
 /*
  * The MIT License (MIT)
- * Copyright (c) 2020 Karl STEIN
+ * Copyright (c) 2024 Karl STEIN
  */
 
 export type OffsetPaginationOptions = {

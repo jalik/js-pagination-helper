@@ -4,13 +4,7 @@
  */
 
 import { describe, expect, it } from '@jest/globals'
-import { OffsetPagination } from '../src/PaginationHelper'
-
-describe('OffsetPagination', () => {
-  it('should be importable from package', () => {
-    expect(typeof OffsetPagination).toEqual('function')
-  })
-})
+import { OffsetPagination } from '../src'
 
 describe('equals(pagination)', () => {
   const p1 = new OffsetPagination({

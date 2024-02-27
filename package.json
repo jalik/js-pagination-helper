@@ -21,9 +21,9 @@
     "url": "https://github.com/jalik/js-pagination-helper/issues"
   },
   "sideEffects": false,
-  "esnext": "esm/PaginationHelper.js",
-  "main": "cjs/PaginationHelper.js",
-  "module": "esm/PaginationHelper.js",
+  "esnext": "esm/index.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
   "files": [
     "/cjs",
     "/esm"

@@ -18,90 +18,88 @@ It works nice with any Javascript environment (browser, nodejs) and framework (R
 
 To create your first pagination helper, take look at the code below.
 
-```js
-import PaginationHelper from "@jalik/pagination-helper";
+```ts
+import PaginationHelper from '@jalik/pagination-helper'
 
 // Creates the pagination.
 const pagination = new PaginationHelper({
-    // Set the limit per page.
-    limit: 10,
-    // Set the initial offset
-    // used to calculate the page.
-    offset: 0,
-    // Or set the current page,
-    // which will calculate the offset automatically.
-    page: 1,
-    // Set the total number of elements
-    // used to calculate page count.
-    total: 200
-});
+  // Set the limit per page.
+  limit: 10,
+  // Set the initial offset used to calculate the page.
+  offset: 0,
+  // Or set the page number, to calculate the offset automatically.
+  // If present, it will be used instead of offset.
+  page: 1,
+  // Set the total number of elements used to calculate page count.
+  totalElements: 200
+})
 
 // Compares with another pagination.
 // In this case, it returns false because the limit is different.
-pagination.equal(new PaginationHelper({limit:15, page:1, total:200}));
+pagination.equal(new PaginationHelper({ limit: 15, page: 1, totalElements: 200 }))
 
 // Returns the closest valid page.
 // In this case, it returns 20 since the last page is 20.
-pagination.getClosestPage(42);
+pagination.getClosestPage(42)
 
 // Returns the last page.
 // In this case, it returns 20 (20 = 200 / 10).
-pagination.getLastPage();
+pagination.getLastPage()
 
 // Returns the current limit.
-pagination.getLimit();
+pagination.getLimit()
 
 // Returns the next page.
-pagination.getNextPage();
+pagination.getNextPage()
 
 // Returns the corresponding offset of a page.
 // In this case, it returns 40 (40 = (5 * 10) - 10).
-pagination.getOffsetFromPage(5);
+pagination.getOffsetFromPage(5)
 
 // Returns the current offset.
-pagination.getOffset();
+pagination.getOffset()
 
 // Returns the current page.
-pagination.getPage();
+pagination.getPage()
 
 // Returns the page count.
-pagination.getPageCount();
+pagination.getPageCount()
 
 // Returns the corresponding page of an offset.
 // In this case, it returns 3 (3 = (20 / 10) + 1).
-pagination.getPageFromOffset(20);
+pagination.getPageFromOffset(20)
 
 // Returns the previous page. 
-pagination.getPreviousPage();
+pagination.getPreviousPage()
 
 // Returns the total number of elements of the pagination.
-pagination.getTotal();
+pagination.getTotalElements()
 
 // Checks if there is a previous page.
 // This would return false if page was the last.
-pagination.hasNext();
+pagination.hasNext()
 
 // Checks if there is a previous page.
 // This would return false if page was the first.
-pagination.hasPrevious();
+pagination.hasPrevious()
 
 // Checks if page is between 1 and page count (inclusive).
 // In this case, it returns false because limit is 10 and total is 200,
 // which gives a total of 20 pages and 50 is above this value.
-pagination.isPageValid(50);
+pagination.isPageValid(50)
 
 // Sets the pagination limit (used to calculate page count).
-pagination.setLimit(25);
+pagination.setLimit(25)
 
 // Sets the offset (used to calculate the page.
 // Note: you may prefer to use setPage() instead of setOffset().
-pagination.setOffset(20);
+pagination.setOffset(20)
 
 // Sets the current page (same as setOffset(20)).
-pagination.setPage(2);
+pagination.setPage(2)
 
 // Sets the total number of elements of the pagination (used to calculate page count).
-pagination.setTotal(999);
+pagination.setTotalElements(999)
 ```
 
 ## Changelog

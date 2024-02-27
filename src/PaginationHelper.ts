@@ -9,19 +9,18 @@ export type PaginationHelperOptions = {
   // todo add minPage
   // todo rename to number
   page?: number
-  // todo rename to totalElements
-  total: number
+  totalElements: number
 }
 
 // todo rename to OffsetPagination
 class PaginationHelper {
   private limit!: number
   private offset!: number
-  private total!: number
+  private totalElements!: number
 
   constructor (options: PaginationHelperOptions) {
     this.setLimit(options.limit)
-    this.setTotal(options.total)
+    this.setTotalElements(options.totalElements)
 
     // Set the offset using the page number
     if (options.page != null) {
@@ -55,7 +54,7 @@ class PaginationHelper {
   equal (pagination: PaginationHelper): boolean {
     return this.getLimit() === pagination.getLimit() &&
       this.getOffset() === pagination.getOffset() &&
-      this.getTotal() === pagination.getTotal()
+      this.getTotalElements() === pagination.getTotalElements()
   }
 
   /**
@@ -108,8 +107,8 @@ class PaginationHelper {
    * todo rename to getTotalPages()
    */
   getPageCount (): number {
-    return this.total > 0 && this.limit > 0
-      ? Math.ceil(this.total / this.limit)
+    return this.totalElements > 0 && this.limit > 0
+      ? Math.ceil(this.totalElements / this.limit)
       : 1
   }
 
@@ -132,10 +131,9 @@ class PaginationHelper {
 
   /**
    * Returns the number of elements.
-   * todo rename to getTotalElements()
    */
-  getTotal (): number | null {
-    return this.total
+  getTotalElements (): number | null {
+    return this.totalElements
   }
 
   /**
@@ -211,11 +209,10 @@ class PaginationHelper {
 
   /**
    * Sets the total number of elements.
-   * todo rename to setTotalElements()
    * @param total
    */
-  setTotal (total: number) {
-    this.total = Math.max(0, Math.round(total))
+  setTotalElements (total: number) {
+    this.totalElements = Math.max(0, Math.round(total))
     return this
   }
 }

@@ -26,6 +26,8 @@ export class OffsetPagination {
       this.setPage(options.page)
     } else if (options.offset != null) {
       this.setOffset(options.offset)
+    } else {
+      this.offset = 0
     }
   }
 

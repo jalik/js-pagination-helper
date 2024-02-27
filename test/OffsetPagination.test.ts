@@ -6,6 +6,15 @@
 import { describe, expect, it } from '@jest/globals'
 import { OffsetPagination } from '../src'
 
+describe('new OffsetPagination()', () => {
+  describe('with offset = null and page = null', () => {
+    const p = new OffsetPagination({ limit: 10, totalElements: 0 })
+    it('should set offset to 0', () => {
+      expect(p.getOffset()).toBe(0)
+    })
+  })
+})
+
 describe('equals(pagination)', () => {
   const p1 = new OffsetPagination({
     limit: 10,
@@ -14,7 +23,7 @@ describe('equals(pagination)', () => {
   })
   const p2 = new OffsetPagination({
     limit: 10,
-    page: 1,
+    offset: 0,
     totalElements: 100
   })
 

@@ -130,7 +130,7 @@ export class OffsetPagination {
   getTotalPages (): number {
     return this.totalElements > 0 && this.limit > 0
       ? Math.ceil(this.totalElements / this.limit)
-      : 1
+      : 0
   }
 
   /**

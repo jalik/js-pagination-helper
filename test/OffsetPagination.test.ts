@@ -163,18 +163,6 @@ describe('getPage()', () => {
   })
 })
 
-describe('getTotalPages()', () => {
-  const p = new OffsetPagination({
-    limit: 10,
-    page: 1,
-    totalElements: 100
-  })
-
-  it('should return the page count', () => {
-    expect(p.getTotalPages()).toEqual(10)
-  })
-})
-
 describe('getPreviousPage()', () => {
   it('should return the previous page if there is a page before', () => {
     const p = new OffsetPagination({
@@ -215,6 +203,30 @@ describe('getTotalElements()', () => {
 
   it('should return the total', () => {
     expect(p.getTotalElements()).toEqual(100)
+  })
+})
+
+describe('getTotalPages()', () => {
+  describe('with totalElements > 0', () => {
+    const p = new OffsetPagination({
+      limit: 10,
+      page: 1,
+      totalElements: 100
+    })
+    it('should return the page count', () => {
+      expect(p.getTotalPages()).toEqual(10)
+    })
+  })
+
+  describe('with totalElements = 0', () => {
+    const p = new OffsetPagination({
+      limit: 10,
+      page: 1,
+      totalElements: 0
+    })
+    it('should return 0', () => {
+      expect(p.getTotalPages()).toEqual(0)
+    })
   })
 })
 

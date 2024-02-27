@@ -149,7 +149,7 @@ describe('getPage()', () => {
   })
 })
 
-describe('getPageCount()', () => {
+describe('getTotalPages()', () => {
   const p = new PaginationHelper({
     limit: 10,
     page: 1,
@@ -157,7 +157,7 @@ describe('getPageCount()', () => {
   })
 
   it('should return the page count', () => {
-    expect(p.getPageCount()).toEqual(10)
+    expect(p.getTotalPages()).toEqual(10)
   })
 })
 
@@ -362,6 +362,6 @@ describe('setTotalElements(total)', () => {
     })
     p.setTotalElements(50)
     expect(p.getTotalElements()).toEqual(50)
-    expect(p.getPageCount()).toEqual(5)
+    expect(p.getTotalPages()).toEqual(5)
   })
 })

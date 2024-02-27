@@ -62,9 +62,6 @@ pagination.getOffset()
 // Returns the current page.
 pagination.getPage()
 
-// Returns the page count.
-pagination.getPageCount()
-
 // Returns the corresponding page of an offset.
 // In this case, it returns 3 (3 = (20 / 10) + 1).
 pagination.getPageFromOffset(20)
@@ -74,6 +71,9 @@ pagination.getPreviousPage()
 
 // Returns the total number of elements of the pagination.
 pagination.getTotalElements()
+
+// Returns the page count.
+pagination.getTotalPages()
 
 // Checks if there is a previous page.
 // This would return false if page was the last.

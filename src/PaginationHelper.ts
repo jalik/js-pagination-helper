@@ -31,12 +31,12 @@ class PaginationHelper {
   }
 
   /**
-   * Returns the closest valid page number
+   * Returns the closest valid page number.
    * @param page
    */
   getClosestPage (page: number): number {
     let closest = page
-    const count = this.getPageCount()
+    const count = this.getTotalPages()
 
     if (page > count) {
       closest = count
@@ -61,7 +61,7 @@ class PaginationHelper {
    * Returns the last page.
    */
   getLastPage (): number {
-    return this.getPageCount()
+    return this.getTotalPages()
   }
 
   /**
@@ -75,7 +75,7 @@ class PaginationHelper {
    * Returns the next page.
    */
   getNextPage (): number {
-    return this.getPage() < this.getPageCount()
+    return this.getPage() < this.getTotalPages()
       ? this.getPage() + 1
       : this.getLastPage()
   }
@@ -103,16 +103,6 @@ class PaginationHelper {
   }
 
   /**
-   * Returns the number of pages.
-   * todo rename to getTotalPages()
-   */
-  getPageCount (): number {
-    return this.totalElements > 0 && this.limit > 0
-      ? Math.ceil(this.totalElements / this.limit)
-      : 1
-  }
-
-  /**
    * Returns a page from an offset.
    * @param offset
    */
@@ -137,6 +127,15 @@ class PaginationHelper {
   }
 
   /**
+   * Returns the number of pages.
+   */
+  getTotalPages (): number {
+    return this.totalElements > 0 && this.limit > 0
+      ? Math.ceil(this.totalElements / this.limit)
+      : 1
+  }
+
+  /**
    * Checks if there is a page after.
    */
   hasNext (): boolean {
@@ -155,7 +154,7 @@ class PaginationHelper {
    * @param page
    */
   isPageValid (page: number): boolean {
-    return page > 0 && page <= this.getPageCount()
+    return page > 0 && page <= this.getTotalPages()
   }
 
   /**

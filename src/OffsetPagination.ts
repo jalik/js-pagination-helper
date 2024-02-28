@@ -198,7 +198,9 @@ export class OffsetPagination {
    * @param limit
    */
   setLimit (limit: number) {
-    this.limit = Math.max(0, Math.round(limit))
+    if (!Number.isNaN((limit))) {
+      this.limit = Math.max(0, Math.round(limit))
+    }
     return this
   }
 
@@ -207,7 +209,9 @@ export class OffsetPagination {
    * @param offset
    */
   setOffset (offset: number) {
-    this.offset = Math.max(0, Math.round(offset))
+    if (!Number.isNaN((offset))) {
+      this.offset = Math.max(0, Math.round(offset))
+    }
     return this
   }
 
@@ -216,7 +220,9 @@ export class OffsetPagination {
    * @param page
    */
   setPage (page: number) {
-    this.setOffset(this.getOffsetFromPage(page))
+    if (!Number.isNaN((page))) {
+      this.setOffset(this.getOffsetFromPage(page))
+    }
     return this
   }
 
@@ -225,7 +231,9 @@ export class OffsetPagination {
    * @param total
    */
   setTotalElements (total: number) {
-    this.totalElements = Math.max(0, Math.round(total))
+    if (!Number.isNaN((total))) {
+      this.totalElements = Math.max(0, Math.round(total))
+    }
     return this
   }
 }

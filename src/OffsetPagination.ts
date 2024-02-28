@@ -91,7 +91,7 @@ export class OffsetPagination {
    * Returns the next page.
    */
   getNextPage (increment: number = 1): number {
-    return Math.min(this.getLastPage(), this.getPage() + increment)
+    return Math.min(this.getLastPage(), this.getPage() + Math.max(1, increment))
   }
 
   /**
@@ -130,7 +130,7 @@ export class OffsetPagination {
    * Returns the previous page.
    */
   getPreviousPage (increment: number = 1): number {
-    return Math.max(this.minPage, this.getPage() - increment)
+    return Math.max(this.minPage, this.getPage() - Math.max(1, increment))
   }
 
   /**

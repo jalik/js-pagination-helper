@@ -5,6 +5,7 @@
 
 export type OffsetPaginationOptions = {
   limit: number
+  maxLimit?: number
   minPage?: number
   offset?: number
   page?: number
@@ -13,13 +14,15 @@ export type OffsetPaginationOptions = {
 
 export class OffsetPagination {
   private limit!: number
+  private readonly maxLimit: number | null
   private readonly minPage: number
   private offset!: number
   private totalElements!: number
 
   constructor (options: OffsetPaginationOptions) {
-    this.setLimit(options.limit)
-    this.setTotalElements(options.totalElements)
+    this.maxLimit = options.maxLimit != null && !Number.isNaN(options.maxLimit)
+      ? options.maxLimit
+      : null
 
     this.minPage = options.minPage != null && !Number.isNaN(options.minPage)
       ? options.minPage
@@ -85,6 +88,13 @@ export class OffsetPagination {
    */
   getLimit (): number {
     return this.limit
+  }
+
+  /**
+   * Returns the max limit.
+   */
+  getMaxLimit (): number | null {
+    return this.maxLimit
   }
 
   /**
@@ -199,7 +209,12 @@ export class OffsetPagination {
    */
   setLimit (limit: number) {
     if (!Number.isNaN((limit))) {
-      this.limit = Math.max(0, Math.round(limit))
+      const value = Math.max(0, Math.round(limit))
+      if (this.maxLimit != null) {
+        this.limit = Math.min(this.maxLimit, value)
+      } else {
+        this.limit = value
+      }
     }
     return this
   }

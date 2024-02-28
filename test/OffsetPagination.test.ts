@@ -52,6 +52,18 @@ describe('new OffsetPagination()', () => {
       expect(p1.getOffset()).toBe(50)
     })
   })
+
+  describe('with maxLimit', () => {
+    const p = new OffsetPagination({
+      limit: 999,
+      maxLimit: 100,
+      totalElements: 50
+    })
+    it('should set maxLimit', () => {
+      expect(p.getMaxLimit()).toBe(100)
+      expect(p.getLimit()).toBe(p.getMaxLimit())
+    })
+  })
 })
 
 describe('equals(pagination)', () => {
@@ -184,6 +196,29 @@ describe('getLimit()', () => {
 
   it('should return the limit per page', () => {
     expect(p.getLimit()).toEqual(5)
+  })
+})
+
+describe('getMaxLimit()', () => {
+  describe('with option maxLimit = null', () => {
+    const p = new OffsetPagination({
+      limit: 5,
+      totalElements: 100
+    })
+    it('should return null', () => {
+      expect(p.getMaxLimit()).toEqual(null)
+    })
+  })
+
+  describe('with option maxLimit >= 0', () => {
+    const p = new OffsetPagination({
+      limit: 5,
+      maxLimit: 50,
+      totalElements: 100
+    })
+    it('should return the max limit', () => {
+      expect(p.getMaxLimit()).toEqual(50)
+    })
   })
 })
 

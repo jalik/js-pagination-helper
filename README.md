@@ -49,6 +49,9 @@ pagination.getFirstPage()
 // In this case, it returns 20 (20 = 200 / 10).
 pagination.getLastPage()
 
+// Returns the maximum value for limit.
+pagination.getMaxLimit()
+
 // Returns the current limit.
 pagination.getLimit()
 

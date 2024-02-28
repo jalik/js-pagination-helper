@@ -1,4 +1,5 @@
 # @jalik/pagination-helper
+
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/jalik/js-pagination-helper.svg)
 [![Build Status](https://travis-ci.com/jalik/js-pagination-helper.svg?branch=master)](https://travis-ci.com/jalik/js-pagination-helper)
 ![GitHub](https://img.shields.io/github/license/jalik/js-pagination-helper.svg)
@@ -6,13 +7,15 @@
 [![GitHub issues](https://img.shields.io/github/issues/jalik/js-pagination-helper.svg)](https://github.com/jalik/js-pagination-helper/issues)
 ![npm](https://img.shields.io/npm/dt/@jalik/pagination-helper.svg)
 
-A helper to handle pagination easily.
+Create and manipulate paginations fast and easy.
 
-## Introduction
+## Features
 
-Using a helper class to manage your paginations is the best thing you can do to minimize your code, making it simpler and more readable, with the advantage to reduce the risk of creating bugs by writing your own pagination methods.
-
-It works nice with any Javascript environment (browser, nodejs) and framework (React, Angular, Vue).
+* Handle offset based paginations
+* Get calculated page numbers (first, previous, next, last)
+* Get calculated total pages
+* TypeScript declarations ♥
+* 50+ tests
 
 ## Creating an offset pagination
 
@@ -27,10 +30,10 @@ const pagination = new OffsetPagination({
   minPage: 1,
   // (optional) Set the initial offset (0 by default).
   offset: 0,
-  // Or set the page number, to calculate the offset automatically.
+  // (optional) set the page number, to calculate the offset automatically.
   // If present, it will be used instead of offset.
   page: 1,
-  // Set the total number of elements used to calculate page count.
+  // Set the total number of elements.
   totalElements: 200
 })
 
@@ -58,12 +61,12 @@ pagination.getLimit()
 // Returns the next page.
 pagination.getNextPage()
 
+// Returns the current offset.
+pagination.getOffset()
+
 // Returns the corresponding offset of a page.
 // In this case, it returns 40 (40 = (5 * 10) - 10).
 pagination.getOffsetFromPage(5)
-
-// Returns the current offset.
-pagination.getOffset()
 
 // Returns the current page.
 pagination.getPage()
@@ -72,7 +75,7 @@ pagination.getPage()
 // In this case, it returns 3 (3 = (20 / 10) + 1).
 pagination.getPageFromOffset(20)
 
-// Returns the previous page. 
+// Returns the previous page.
 pagination.getPreviousPage()
 
 // Returns the total number of elements of the pagination.
@@ -104,7 +107,7 @@ pagination.setOffset(20)
 // Sets the current page (same as setOffset(20)).
 pagination.setPage(2)
 
-// Sets the total number of elements of the pagination (used to calculate page count).
+// Sets the total number of elements.
 pagination.setTotalElements(999)
 ```
 

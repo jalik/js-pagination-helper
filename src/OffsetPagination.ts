@@ -188,7 +188,6 @@ export class OffsetPagination {
     if (this.hasNext()) {
       this.offset += this.limit
     }
-    return this
   }
 
   /**
@@ -200,7 +199,6 @@ export class OffsetPagination {
     } else {
       this.offset = 0
     }
-    return this
   }
 
   /**
@@ -216,7 +214,6 @@ export class OffsetPagination {
         this.limit = value
       }
     }
-    return this
   }
 
   /**
@@ -227,7 +224,6 @@ export class OffsetPagination {
     if (!Number.isNaN((offset))) {
       this.offset = Math.max(0, Math.round(offset))
     }
-    return this
   }
 
   /**
@@ -238,7 +234,6 @@ export class OffsetPagination {
     if (!Number.isNaN((page))) {
       this.setOffset(this.getOffsetFromPage(page))
     }
-    return this
   }
 
   /**
@@ -249,6 +244,5 @@ export class OffsetPagination {
     if (!Number.isNaN((total))) {
       this.totalElements = Math.max(0, Math.round(total))
     }
-    return this
   }
 }

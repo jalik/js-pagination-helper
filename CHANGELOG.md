@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.1 (2025-11-21)
+
+- deps: upgrade dependencies
+
 ## v3.0.0 (2024-02-27)
 
 - **[BREAKING CHANGE]** Renamed option `total` to `totalElements`

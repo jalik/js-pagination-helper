@@ -3,7 +3,7 @@
  * Copyright (c) 2024 Karl STEIN
  */
 
-import { describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from 'vitest'
 import { OffsetPagination } from '../src'
 
 describe('OffsetPagination', () => {
